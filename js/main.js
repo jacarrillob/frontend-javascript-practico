@@ -1,4 +1,4 @@
-const menuEmail = document.querySelector('.navbar-email')
+const navEmail = document.querySelector('.navbar-email')
 const desktopMenu = document.querySelector('.desktop-menu')
 
 const IconMenu = document.querySelector('.icon-menu')
@@ -7,11 +7,15 @@ const mobileMenu = document.querySelector('.mobile-menu')
 const shoppingCart = document.querySelector('.navbar-shopping-cart')
 const shoppingCartContainer = document.querySelector('#shopping-cart-container')
 
+const productDetailAside = document.querySelector('#product-detail')
+const productDetailClose = document.querySelector('.product-detail-close')
+
 const cardsContainer = document.querySelector('.cards-container')
 
-menuEmail.addEventListener('click', toggleMenu)
+navEmail.addEventListener('click', toggleMenu)
 IconMenu.addEventListener('click', toggleMobileMenu)
 shoppingCart.addEventListener('click', shoppingCartAside)
+productDetailClose.addEventListener('click', closeProductDetailAside)
 
 function toggleMenu() {
     const isProductDetailClosed = shoppingCartContainer.classList.contains('inactive')
@@ -19,7 +23,7 @@ function toggleMenu() {
     if (!isProductDetailClosed) {
         shoppingCartContainer.classList.toggle('inactive')
     }
-
+    closeProductDetailAside()
     return desktopMenu.classList.toggle('inactive')
 }
 
@@ -29,13 +33,14 @@ function toggleMobileMenu() {
     if (!isProductDetailClosed) {
         shoppingCartContainer.classList.toggle('inactive')
     }
-
+    closeProductDetailAside()
     return mobileMenu.classList.toggle('inactive')
 }
 
 function shoppingCartAside() {
     const isMobileMenuClosed = mobileMenu.classList.contains('inactive')
     const isDesktopMenuClosed = desktopMenu.classList.contains('inactive')
+    const isProductDetailAsideClosed = productDetailAside.classList.contains('inactive')
     
     if (!isMobileMenuClosed) {
         mobileMenu.classList.toggle('inactive')
@@ -43,8 +48,25 @@ function shoppingCartAside() {
     if (!isDesktopMenuClosed) {
         desktopMenu.classList.toggle('inactive')
     }
+    if (!isProductDetailAsideClosed) {
+        productDetailAside.classList.toggle('inactive')
+    }
 
     return shoppingCartContainer.classList.toggle('inactive')
+}
+
+function openProductDetailAside () {
+    const isShoppingCartContainerClosed = shoppingCartContainer.classList.contains('inactive')
+    
+    if (!isShoppingCartContainerClosed) {
+        shoppingCartContainer.classList.toggle('inactive')
+    }
+    desktopMenu.classList.add('inactive')
+    return productDetailAside.classList.remove('inactive')
+}
+
+function closeProductDetailAside () {
+    return productDetailAside.classList.add('inactive')
 }
 
 const productItems = [
@@ -108,6 +130,7 @@ const productItems = [
         image: 'https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
     }
 ]
+
 productItems.push({
     name: 'Triciclo',
     price: 20000,
@@ -121,6 +144,7 @@ function renderProductos(array) {
     
         const imgProduct = document.createElement('img')
         imgProduct.setAttribute('src', element.image)
+        imgProduct.addEventListener('click', openProductDetailAside)
     
         const productInfo = document.createElement('div')
         productInfo.classList.add('product-info')

@@ -177,7 +177,12 @@ aside {
   right: 0;
 }
 #shopping-cart-container {
-  padding: 0 24px;
+  padding: 0 24px 24px;
+  background-color: var(--white);
+}
+#product-detail {
+  padding-bottom: 24px;
+  background-color: var(--white);
 }
 .title-container {
   display: flex;
@@ -333,7 +338,7 @@ aside {
   margin-top: 0;
   margin-bottom: 36px;
 }
-.primary-button {
+#product-detail .primary-button {
   background-color: var(--hospital-green);
   border-radius: 8px;
   border: none;
@@ -360,7 +365,7 @@ aside {
   .navbar-email {
     display: none;
   }
-  .product-detail {
+  aside {
     width: 100%;
   }
   .cards-container {
